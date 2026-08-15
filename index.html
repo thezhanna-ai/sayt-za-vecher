@@ -279,12 +279,13 @@
   /* сверху воздух под гирлянду */
   .cta-scene{position:relative;margin:52px 0 8px;padding-top:44px;isolation:isolate}
   /* солнце крутится ВНУТРИ коричневого блока, обрезано по его скруглению */
-  .cta-sun-clip{position:absolute;inset:0;overflow:hidden;z-index:0;
+  /* солнце крутится ПОВЕРХ блока: большое, по центру, тонкие лучи через текст */
+  .cta-sun-clip{position:absolute;inset:0;overflow:hidden;z-index:2;
                 pointer-events:none;border-radius:20px}
-  .cta-sun{position:absolute;bottom:16px;right:16px;width:210px;height:210px;
-           animation:cta-spin 30s linear infinite;
-           opacity:.4;pointer-events:none}
-  .cta-sun span{position:absolute;top:50%;left:50%;width:3px;height:48%;
+  .cta-sun{position:absolute;top:50%;left:50%;width:560px;height:560px;
+           margin:-280px 0 0 -280px;animation:cta-spin 30s linear infinite;
+           opacity:.5;pointer-events:none}
+  .cta-sun span{position:absolute;top:50%;left:50%;width:2px;height:48%;
                 background:linear-gradient(to top,transparent,#F09A45);
                 transform-origin:bottom center;border-radius:3px}
   @keyframes cta-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
@@ -826,18 +827,18 @@
   <div class="cta-flags" aria-hidden="true">
     <svg viewBox="0 0 360 34" preserveAspectRatio="none">
       <path d="M2 4 Q 90 16 180 8 T 358 5" stroke="#8A7355" stroke-width="1.4" fill="none"/>
-      <polygon points="8,5 26,7 17,28"     fill="#C4A484"/>
-      <polygon points="38,7 56,9 47,30"    fill="#D9711F"/>
-      <polygon points="68,9 86,11 77,32"   fill="#C89B3C"/>
-      <polygon points="98,11 116,12 107,33" fill="#B04A28"/>
-      <polygon points="128,12 146,12 137,33" fill="#C4A484"/>
-      <polygon points="158,12 176,11 167,32" fill="#D9711F"/>
-      <polygon points="188,11 206,10 197,31" fill="#C89B3C"/>
-      <polygon points="218,10 236,8 227,29"  fill="#B04A28"/>
-      <polygon points="248,8 266,7 257,28"   fill="#C4A484"/>
-      <polygon points="278,7 296,6 287,27"   fill="#D9711F"/>
-      <polygon points="308,6 326,5 317,26"   fill="#C89B3C"/>
-      <polygon points="338,5 356,5 347,26"   fill="#B04A28"/>
+      <polygon points="8,5 26,7 17,28"     fill="#C4A484" stroke="#6B563E" stroke-width="0.8"/>
+      <polygon points="38,7 56,9 47,30"    fill="#D9711F" stroke="#6B563E" stroke-width="0.8"/>
+      <polygon points="68,9 86,11 77,32"   fill="#C89B3C" stroke="#6B563E" stroke-width="0.8"/>
+      <polygon points="98,11 116,12 107,33" fill="#B04A28" stroke="#6B563E" stroke-width="0.8"/>
+      <polygon points="128,12 146,12 137,33" fill="#C4A484" stroke="#6B563E" stroke-width="0.8"/>
+      <polygon points="158,12 176,11 167,32" fill="#D9711F" stroke="#6B563E" stroke-width="0.8"/>
+      <polygon points="188,11 206,10 197,31" fill="#C89B3C" stroke="#6B563E" stroke-width="0.8"/>
+      <polygon points="218,10 236,8 227,29"  fill="#B04A28" stroke="#6B563E" stroke-width="0.8"/>
+      <polygon points="248,8 266,7 257,28"   fill="#C4A484" stroke="#6B563E" stroke-width="0.8"/>
+      <polygon points="278,7 296,6 287,27"   fill="#D9711F" stroke="#6B563E" stroke-width="0.8"/>
+      <polygon points="308,6 326,5 317,26"   fill="#C89B3C" stroke="#6B563E" stroke-width="0.8"/>
+      <polygon points="338,5 356,5 347,26"   fill="#B04A28" stroke="#6B563E" stroke-width="0.8"/>
     </svg>
   </div>
 
