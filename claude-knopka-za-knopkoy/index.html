@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Claude.ai: кнопка за кнопкой. Пошаговый гид для первого входа и дальнейшей настройки Claude">
+  <meta name="theme-color" content="#f2e9d8">
+  <title>Claude.ai: кнопка за кнопкой</title>
+  <style>
+    :root {
+      --paper: #f2e9d8;
+      --paper-2: #e9ddc6;
+      --ink: #2b2622;
+      --muted: #6e6455;
+      --accent: #d9711f;
+      --accent-dark: #9c4a0d;
+      --line: #c9b896;
+      --ok: #3d7a45;
+      --warn: #c8452c;
+      --code: #1c1815;
+      --code-text: #efe4cc;
+      --shadow: rgba(43, 38, 34, .1);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --paper: #191713;
+        --paper-2: #221f19;
+        --ink: #f0e7d6;
+        --muted: #a2988a;
+        --accent-dark: #e9873a;
+        --line: #3a342a;
+        --ok: #7fc98a;
+        --warn: #e0705a;
+        --shadow: rgba(0, 0, 0, .45);
+      }
+    }
+    * { box-sizing: border-box }
+    html { scroll-behavior: smooth }
+    body {
+      margin: 0;
+      padding: 28px 18px 72px;
+      background: var(--paper);
+      color: var(--ink);
+      font: 400 17px/1.62 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      -webkit-text-size-adjust: 100%;
+    }
+    a { color: var(--accent-dark) }
+    .layout { max-width: 1050px; margin: 0 auto }
+    .wrap { max-width: 760px; margin: 0 auto }
+    .toc { display: none }
+    @media (min-width: 1060px) {
+      .layout { display: grid; grid-template-columns: 236px minmax(0, 760px); gap: 48px; align-items: start }
+      .toc { display: block; position: sticky; top: 28px; border-right: 1px solid var(--line); padding-right: 22px }
+      .toc strong { display: block; margin-bottom: 12px; color: var(--muted); font-size: 12px; letter-spacing: .1em; text-transform: uppercase }
+      .toc a { display: block; padding: 8px 0 8px 14px; border-left: 2px solid transparent; color: var(--muted); text-decoration: none; font-size: 14.5px; line-height: 1.35 }
+      .toc a.active { color: var(--accent-dark); border-color: var(--accent); font-weight: 700 }
+    }
+    .progress { position: fixed; inset: 0 auto auto 0; width: 0; height: 4px; background: var(--accent); z-index: 20 }
+    .kicker { margin: 0 0 10px; color: var(--accent-dark); font-size: 13px; font-weight: 750; letter-spacing: .1em; text-transform: uppercase }
+    h1 { margin: 0 0 14px; font-size: clamp(32px, 7vw, 48px); line-height: 1.05; letter-spacing: -.025em }
+    h2 { margin: 48px 0 16px; font-size: clamp(25px, 5vw, 32px); line-height: 1.18; letter-spacing: -.015em; scroll-margin-top: 18px }
+    h3 { margin: 2px 0 8px; font-size: 19px; line-height: 1.3 }
+    p { margin: 0 0 14px }
+    .lead { margin-bottom: 26px; color: var(--muted); font-size: 19px }
+    .hero, .card, .step, details {
+      margin: 0 0 16px;
+      padding: 19px 20px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--paper-2);
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+    .hero { border-left: 4px solid var(--accent) }
+    .warning { border-left: 4px solid var(--warn) }
+    .success { border-left: 4px solid var(--ok) }
+    .codeword {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 6px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--paper);
+      font-weight: 800;
+      letter-spacing: .06em;
+    }
+    .steps { margin-top: 18px }
+    .step { display: grid; grid-template-columns: 42px minmax(0, 1fr); gap: 14px; padding: 16px 18px }
+    .num { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; background: var(--accent); color: white; font-weight: 800; font-size: 19px }
+    .label { color: var(--accent-dark); font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase }
+    .mini { color: var(--muted); font-size: 15px }
+    .checklist { list-style: none; padding: 0; margin: 8px 0 0 }
+    .checklist li { position: relative; margin: 10px 0; padding-left: 30px }
+    .checklist li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--ok); font-weight: 900 }
+    .sources { padding-left: 21px }
+    .sources li { margin: 8px 0 }
+    .roadmap { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 14px }
+    .roadmap div { padding: 12px 14px; border: 1px solid var(--line); border-radius: 11px; color: var(--muted); font-size: 15px }
+    .roadmap b { color: var(--ink) }
+    .cta { margin-top: 46px; padding: 26px 22px; border-radius: 18px; background: var(--ink); color: var(--paper) }
+    .cta h2 { margin: 0 0 10px; color: var(--paper) }
+    .cta p { color: var(--code-text) }
+    .button { display: inline-block; margin-top: 8px; padding: 13px 18px; border-radius: 10px; background: var(--accent); color: white; text-decoration: none; font-weight: 800 }
+    .foot { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px }
+    @media (max-width: 520px) {
+      body { padding: 20px 14px 58px; font-size: 16.5px }
+      .hero, .card, .step, details { padding: 16px }
+      .step { grid-template-columns: 36px minmax(0, 1fr); gap: 12px }
+      .num { width: 36px; height: 36px; font-size: 17px }
+      .roadmap { grid-template-columns: 1fr }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"></div>
+  <div class="layout">
+    <nav class="toc" aria-label="Содержание">
+      <strong>Содержание</strong>
+      <a class="active" href="#dostup">01. Доступ из России</a>
+      <a href="#dalshe">Следующие кнопки</a>
+      <a href="#sources">Источники</a>
+    </nav>
+
+    <main class="wrap">
+      <p class="kicker">Claude.ai · кнопка за кнопкой</p>
+      <h1>Первый вход без лишней путаницы</h1>
+      <p class="lead">Один растущий гид по Claude.ai. Каждый новый Reels добавляет сюда следующий раздел</p>
+
+      <section class="hero">
+        <b>Пришла по слову из Reels?</b>
+        <p>Нужный раздел уже открыт. Сохрани ссылку: дальше здесь появятся инструкции, память, Projects, поиск, голосовые режимы и остальные кнопки Claude.ai</p>
+        <span class="codeword">КОДОВОЕ СЛОВО: ДОСТУП</span>
+      </section>
+
+      <section id="dostup">
+        <p class="kicker">Раздел 01</p>
+        <h2>Как подключить Claude из России</h2>
+
+        <div class="card warning">
+          <b>Сначала подготовь три вещи</b>
+          <p>VPN с выбранной поддерживаемой страной, почту Gmail и зарубежный номер той же страны, который принимает SMS</p>
+        </div>
+
+        <div class="steps">
+          <article class="step">
+            <div class="num">1</div>
+            <div>
+              <span class="label">VPN</span>
+              <h3>Выбери одну страну и один сервер</h3>
+              <p>Подключи VPN до того, как откроешь Claude. Не переключай страны и серверы во время регистрации и работы</p>
+              <p class="mini">Лучше стабильный личный сервер. Бесплатные массовые VPN часто дают общий IP, которым одновременно пользуются тысячи людей</p>
+            </div>
+          </article>
+
+          <article class="step">
+            <div class="num">2</div>
+            <div>
+              <span class="label">Почта и номер</span>
+              <h3>Подготовь Gmail и зарубежный номер</h3>
+              <p>Номер должен быть из поддерживаемой страны и принимать обычные SMS. Страна номера должна совпадать со страной VPN</p>
+              <p class="mini">Anthropic не принимает VoIP, Google Voice, номера из приложений и номера, которые не получают SMS</p>
+            </div>
+          </article>
+
+          <article class="step">
+            <div class="num">3</div>
+            <div>
+              <span class="label">Вход</span>
+              <h3>Открой <a href="https://claude.ai/">claude.ai</a></h3>
+              <p>Нажми <b>Continue with Google</b>, выбери подготовленный Gmail и пройди вход. Можно войти и через кнопку <b>Continue with email</b>, тогда Claude пришлёт ссылку на почту</p>
+            </div>
+          </article>
+
+          <article class="step">
+            <div class="num">4</div>
+            <div>
+              <span class="label">SMS</span>
+              <h3>Подтверди телефон</h3>
+              <p>Введи зарубежный номер, дождись шестизначного кода, впиши его в поле и нажми <b>Verify code</b></p>
+              <p class="mini">Используй номер, к которому у тебя останется доступ. После подтверждения заменить привязанный номер нельзя</p>
+            </div>
+          </article>
+
+          <article class="step">
+            <div class="num">5</div>
+            <div>
+              <span class="label">Проверка</span>
+              <h3>Убедись, что аккаунт открылся</h3>
+              <p>После входа отправь в новом чате короткое сообщение. Если видишь поле для запроса и Claude отвечает, подключение закончено</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="card success">
+          <b>Если аккаунт уже есть</b>
+          <p>Телефон заново обычно не нужен. Включи тот же VPN, открой claude.ai и войди через тот же Google-аккаунт или адрес электронной почты</p>
+        </div>
+
+        <div class="card">
+          <b>Короткая проверка перед входом</b>
+          <ul class="checklist">
+            <li>VPN включён, выбрана одна страна и один сервер</li>
+            <li>Gmail открывается и принадлежит тебе</li>
+            <li>Зарубежный номер принимает SMS</li>
+            <li>Страна VPN и страна номера совпадают</li>
+            <li>Открыт адрес claude.ai, а не Claude Code</li>
+          </ul>
+        </div>
+
+        <p>Подробный разбор стабильного VPN, регистрации и защиты аккаунта: <a href="https://theivansergeev.com/claude-vpn-bez-banov/#part-vpn">«Claude из России без банов»</a></p>
+      </section>
+
+      <section id="dalshe">
+        <p class="kicker">Единый гид</p>
+        <h2>Следующие кнопки появятся здесь</h2>
+        <div class="roadmap">
+          <div><b>02</b> Инструкции для Claude</div>
+          <div><b>03</b> Память Claude</div>
+          <div><b>04</b> Импорт памяти из ChatGPT</div>
+          <div><b>05</b> Выбор модели и Effort</div>
+          <div><b>06</b> Projects</div>
+          <div><b>07</b> Gmail, Drive и Calendar</div>
+          <div><b>08</b> Web search</div>
+          <div><b>09</b> Три голосовых режима</div>
+          <div><b>10</b> Скриншот вместо объяснений</div>
+          <div><b>11</b> Готовые файлы</div>
+          <div><b>12</b> Артефакты</div>
+          <div><b>13</b> Поиск старого разговора</div>
+          <div><b>14</b> Инкогнито</div>
+          <div><b>15</b> MarkItDown для PDF</div>
+        </div>
+      </section>
+
+      <section id="sources">
+        <p class="kicker">Проверено 6 сентября 2026</p>
+        <h2>Источники</h2>
+        <ul class="sources">
+          <li><a href="https://support.claude.com/en/articles/8461763-where-can-i-access-claude">Anthropic: где доступен Claude</a></li>
+          <li><a href="https://support.claude.com/en/articles/8287232-verify-your-phone-number">Anthropic: подтверждение номера телефона</a></li>
+          <li><a href="https://support.claude.com/en/articles/13189465-log-in-to-your-claude-account">Anthropic: вход через Google или email</a></li>
+        </ul>
+      </section>
+
+      <section class="cta">
+        <p class="kicker">Следующий шаг</p>
+        <h2>Хочешь не просто открыть Claude, а научиться работать с ним?</h2>
+        <p>На практикуме ты пройдёшь путь от первого запуска Claude Code и Codex до готового продукта</p>
+        <a class="button" href="https://theivansergeev.com/ailager/?gcpc=16fff">Перейти на практикум</a>
+      </section>
+
+      <footer class="foot">Независимый русскоязычный гид. Claude и Anthropic являются товарными знаками их владельцев</footer>
+    </main>
+  </div>
+
+  <script>
+    const bar = document.querySelector('.progress');
+    const draw = () => {
+      const height = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.width = `${height > 0 ? Math.min(100, window.scrollY / height * 100) : 0}%`;
+    };
+    addEventListener('scroll', draw, {passive: true});
+    draw();
+  </script>
+</body>
+</html>
