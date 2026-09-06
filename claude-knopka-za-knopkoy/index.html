@@ -94,6 +94,16 @@
     .num { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 50%; background: var(--accent); color: white; font-weight: 800; font-size: 19px }
     .label { color: var(--emerald-mid); font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase }
     .mini { color: var(--muted); font-size: 15px }
+    .route { margin: 18px 0 22px; padding: 18px 20px; border-radius: 14px; background: var(--emerald); color: var(--white) }
+    .route b { color: var(--paper-2) }
+    .route p:last-child { margin-bottom: 0 }
+    .choice-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 16px 0 22px }
+    .choice { padding: 17px 18px; border: 1px solid var(--line); border-radius: 14px; background: var(--paper-2) }
+    .choice h3 { margin-bottom: 8px }
+    .choice p:last-child { margin-bottom: 0 }
+    .bad { color: var(--accent); font-weight: 800 }
+    .path { display: inline-block; padding: 2px 7px; border-radius: 6px; background: rgba(16, 47, 48, .09); color: var(--emerald); font-weight: 750 }
+    .result { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--emerald-mid) }
     .checklist { list-style: none; padding: 0; margin: 8px 0 0 }
     .checklist li { position: relative; margin: 10px 0; padding-left: 30px }
     .checklist li::before { content: "✓"; position: absolute; left: 0; top: 0; color: var(--ok); font-weight: 900 }
@@ -117,6 +127,7 @@
       .step { grid-template-columns: 36px minmax(0, 1fr); gap: 12px }
       .num { width: 36px; height: 36px; font-size: 17px }
       .roadmap { grid-template-columns: 1fr }
+      .choice-grid { grid-template-columns: 1fr }
     }
   </style>
 </head>
@@ -159,9 +170,27 @@
         <p class="kicker">Раздел 01</p>
         <h2>Как подключить Claude из России</h2>
 
+        <div class="route">
+          <b>Короткий маршрут</b>
+          <p>Стабильный VPN одной страны → Google-аккаунт с Gmail → вход через Continue with Google → зарубежный номер, если Claude попросит SMS</p>
+        </div>
+
         <div class="card warning">
-          <b>Сначала подготовь три вещи</b>
-          <p>VPN с выбранной поддерживаемой страной, почту Gmail и зарубежный номер той же страны, который принимает SMS</p>
+          <b>Что здесь не используем</b>
+          <p>Российскую локацию, Яндекс.Почту, Mail.ru и российский номер +7. Для этой инструкции нужен Google-аккаунт, созданный или используемый через поддерживаемую страну</p>
+        </div>
+
+        <div class="choice-grid">
+          <article class="choice">
+            <p class="label">Google-аккаунт уже есть</p>
+            <h3>Используй свой Gmail</h3>
+            <p>Старый личный аккаунт лучше только что созданного. Входи через кнопку <b>Continue with Google</b></p>
+          </article>
+          <article class="choice">
+            <p class="label">Google-аккаунта нет</p>
+            <h3>Сначала создай его</h3>
+            <p>Включи VPN поддерживаемой страны и зарегистрируй отдельный Google-аккаунт. Не выбирай российскую локацию</p>
+          </article>
         </div>
 
         <div class="steps">
@@ -169,62 +198,104 @@
             <div class="num">1</div>
             <div>
               <span class="label">VPN</span>
-              <h3>Выбери одну страну и один сервер</h3>
-              <p>Подключи VPN до того, как откроешь Claude. Не переключай страны и серверы во время регистрации и работы</p>
-              <p class="mini">Лучше стабильный личный сервер. Бесплатные массовые VPN часто дают общий IP, которым одновременно пользуются тысячи людей</p>
+              <h3>Сначала включи стабильный VPN</h3>
+              <p>Выбери одну поддерживаемую страну, например Нидерланды или Германию, и один конкретный сервер. Не используй режим «быстрое подключение»: он может каждый раз выдавать другой адрес</p>
+              <p>Открой <a href="https://2ip.ru/">2ip.ru</a>. Проверь страну и запиши цифры IP. При следующих входах страна и по возможности сам IP должны оставаться теми же</p>
+              <p class="mini">Массовый бесплатный VPN хуже стабильного личного подключения: одним адресом до тебя могли пользоваться тысячи людей. Для обычного чата не углубляемся в настройку своего сервера, но правило одно: не прыгай между странами и адресами</p>
+              <p class="result"><b>Что должно получиться:</b> 2ip.ru показывает выбранную зарубежную страну, VPN не переключает сервер сам</p>
             </div>
           </article>
 
-          <article class="step">
+          <article class="step" id="google-account">
             <div class="num">2</div>
             <div>
-              <span class="label">Почта и номер</span>
-              <h3>Подготовь Gmail и зарубежный номер</h3>
-              <p>Номер должен быть из поддерживаемой страны и принимать обычные SMS. Страна номера должна совпадать со страной VPN</p>
-              <p class="mini">Anthropic не принимает VoIP, Google Voice, номера из приложений и номера, которые не получают SMS</p>
+              <span class="label">Если Gmail уже есть</span>
+              <h3>Подготовь Google-аккаунт</h3>
+              <p>Открой Gmail в отдельной вкладке и убедись, что вход выполнен. Для Claude используй именно этот аккаунт, а не адрес Яндекс.Почты или Mail.ru</p>
+              <p>Если аккаунт старый и рабочий, не создавай новый без необходимости. Просто включай перед Claude тот же VPN и не меняй страну</p>
+              <p class="result"><b>Что должно получиться:</b> Gmail открыт, пароль и способ восстановления доступны тебе</p>
             </div>
           </article>
 
           <article class="step">
             <div class="num">3</div>
             <div>
-              <span class="label">Вход</span>
-              <h3>Открой <a href="https://claude.ai/">claude.ai</a></h3>
-              <p>Нажми <b>Continue with Google</b>, выбери подготовленный Gmail и пройди вход. Можно войти и через кнопку <b>Continue with email</b>, тогда Claude пришлёт ссылку на почту</p>
+              <span class="label">Если Gmail нет</span>
+              <h3>Создай Google-аккаунт</h3>
+              <p>Не выключая VPN, открой <a href="https://accounts.google.com/signup">страницу создания Google-аккаунта</a>. Нажми <span class="path">Создать аккаунт → Для личного использования</span></p>
+              <p>Заполни имя и дату рождения, придумай адрес Gmail и пароль. Если Google попросит телефон, используй зарубежный номер, к которому у тебя останется доступ. Российскую локацию в новом аккаунте не выбирай</p>
+              <p class="mini">Не создавай Gmail и Claude одновременно в разных странах. Сначала закончи Google-регистрацию, войди в Gmail, затем переходи в Claude с тем же VPN</p>
+              <p class="result"><b>Что должно получиться:</b> открывается почта Gmail, новый аккаунт не привязан к российской локации</p>
             </div>
           </article>
 
           <article class="step">
             <div class="num">4</div>
             <div>
-              <span class="label">SMS</span>
-              <h3>Подтверди телефон</h3>
-              <p>Введи зарубежный номер, дождись шестизначного кода, впиши его в поле и нажми <b>Verify code</b></p>
-              <p class="mini">Используй номер, к которому у тебя останется доступ. После подтверждения заменить привязанный номер нельзя</p>
+              <span class="label">Вход в Claude</span>
+              <h3>Открой <a href="https://claude.ai/">claude.ai</a></h3>
+              <p>Нажми <b>Continue with Google</b>. В окне Google выбери подготовленный Gmail и подтверди вход</p>
+              <p><span class="bad">Не выбирай Continue with email для Яндекс.Почты или Mail.ru.</span> В этой инструкции основной и рекомендуемый путь только через Google-аккаунт</p>
+              <p class="result"><b>Что увидишь:</b> Claude откроет новый аккаунт или перейдёт к проверке телефона</p>
+            </div>
+          </article>
+
+          <article class="step" id="phone-verification">
+            <div class="num">5</div>
+            <div>
+              <span class="label">Если Claude просит SMS</span>
+              <h3>Подтверди зарубежный номер</h3>
+              <p>Выбери код той же страны, что у VPN, введи номер и дождись шестизначного кода. Российский номер +7 для этой регистрации не используй</p>
+              <p>Самый надёжный вариант: реальная зарубежная SIM или eSIM, которая принимает SMS. Номер должен оставаться доступен тебе</p>
+              <p class="mini">Anthropic предупреждает, что VoIP, Google Voice и номера, которые не принимают обычные SMS, не подходят</p>
+              <p class="result"><b>Что должно получиться:</b> код принят, Claude пропускает тебя к экрану нового чата</p>
             </div>
           </article>
 
           <article class="step">
-            <div class="num">5</div>
+            <div class="num">6</div>
             <div>
-              <span class="label">Проверка</span>
-              <h3>Убедись, что аккаунт открылся</h3>
-              <p>После входа отправь в новом чате короткое сообщение. Если видишь поле для запроса и Claude отвечает, подключение закончено</p>
+              <span class="label">Если зарубежного номера нет</span>
+              <h3>Купи виртуальный номер для одного SMS</h3>
+              <p>Открой сервис аренды SMS-номеров. Выбери ту же страну, что у VPN, затем найди в списке отдельную активацию <b>Claude</b> или <b>Anthropic</b>. Если Claude в списке нет, случайный общий номер не покупай</p>
+              <p>Оплати один номер, скопируй его в Claude и дождись кода в кабинете сервиса. Код вставь в поле Claude и нажми <b>Verify code</b></p>
+              <p class="mini">Виртуальный номер менее надёжен, чем реальная SIM: номер мог использоваться раньше или попасть в чёрный список. Не покупай случайный VoIP-номер без явной поддержки Claude. Цена и наличие меняются, поэтому фиксированную сумму здесь не обещаем</p>
+              <p class="result"><b>Если номер отклонён:</b> не повторяй много раз один и тот же номер. Отмени аренду по правилам сервиса и возьми другой номер поддерживаемой страны или реальную SIM</p>
+            </div>
+          </article>
+
+          <article class="step">
+            <div class="num">7</div>
+            <div>
+              <span class="label">Финальная проверка</span>
+              <h3>Отправь первое сообщение</h3>
+              <p>В новом чате напиши короткий вопрос. Если Claude отвечает, вход закончен. Сохрани выбранную страну, сервер VPN и способ входа через Google</p>
+              <p class="result"><b>На следующий раз:</b> сначала включи тот же VPN, затем открой claude.ai и нажми Continue with Google с тем же Gmail</p>
             </div>
           </article>
         </div>
 
         <div class="card success">
-          <b>Если аккаунт уже есть</b>
-          <p>Телефон заново обычно не нужен. Включи тот же VPN, открой claude.ai и войди через тот же Google-аккаунт или адрес электронной почты</p>
+          <b>Если аккаунт Claude уже есть</b>
+          <p>Новый Gmail и новый номер не нужны. Включи тот же VPN, выбери прежнюю страну и по возможности тот же сервер, затем войди через тот же Google-аккаунт</p>
         </div>
+
+        <details>
+          <summary><b>Что делать, если вход не получился</b></summary>
+          <p><b>Claude пишет, что сервис недоступен в регионе.</b> Закрой вкладку, отключи другие VPN и прокси, включи один сервер поддерживаемой страны, проверь страну на 2ip.ru и открой Claude заново</p>
+          <p><b>Google снова предлагает российскую локацию.</b> Не продолжай регистрацию в этом окне. Проверь VPN, открой отдельный чистый профиль браузера и начни создание Google-аккаунта заново</p>
+          <p><b>Российский номер не принимается.</b> Используй реальную зарубежную SIM или виртуальный SMS-номер той же страны, что у VPN</p>
+          <p><b>Код не приходит.</b> Проверь код страны и способность номера принимать обычные SMS. Временный VoIP-номер мог быть отклонён, тогда нужен другой номер</p>
+          <p><b>После входа снова выбрасывает на старт.</b> Не переключай страну VPN. Оставь один сервер, закрой лишние вкладки Claude и повтори Continue with Google в отдельном профиле браузера</p>
+        </details>
 
         <div class="card">
           <b>Короткая проверка перед входом</b>
           <ul class="checklist">
             <li>VPN включён, выбрана одна страна и один сервер</li>
-            <li>Gmail открывается и принадлежит тебе</li>
-            <li>Зарубежный номер принимает SMS</li>
+            <li>Google-аккаунт с Gmail открывается и принадлежит тебе</li>
+            <li>Для нового Google-аккаунта не выбрана российская локация</li>
+            <li>Есть реальный или виртуальный зарубежный номер на случай SMS</li>
             <li>Страна VPN и страна номера совпадают</li>
             <li>Открыт адрес claude.ai, а не Claude Code</li>
           </ul>
@@ -261,6 +332,8 @@
           <li><a href="https://support.claude.com/en/articles/8461763-where-can-i-access-claude">Anthropic: где доступен Claude</a></li>
           <li><a href="https://support.claude.com/en/articles/8287232-verify-your-phone-number">Anthropic: подтверждение номера телефона</a></li>
           <li><a href="https://support.claude.com/en/articles/13189465-log-in-to-your-claude-account">Anthropic: вход через Google или email</a></li>
+          <li><a href="https://support.google.com/accounts/answer/27441">Google: создание Google-аккаунта</a></li>
+          <li><a href="https://theivansergeev.com/claude-vpn-bez-banov/#blok-a-set-i-adres">Иван Сергеев: одна страна и стабильный IP</a></li>
         </ul>
       </section>
 
