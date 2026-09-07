@@ -116,7 +116,7 @@
     .toc-index { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-variant-numeric: tabular-nums }
 
     @media (min-width: 1000px) {
-      .toc { width: 260px; margin-left: -50px }
+      .toc { width: 260px; margin-left: -50px; padding-left: 50px }
     }
 
     .mobile-toc { display: none }
@@ -762,6 +762,8 @@
       updateProgress();
       updateToc();
     }, { passive: true });
+    addEventListener('hashchange', () => requestAnimationFrame(updateToc));
+    addEventListener('load', () => requestAnimationFrame(updateToc));
     document.querySelectorAll('[data-copy-target]').forEach(button => {
       button.addEventListener('click', async () => {
         const target = document.getElementById(button.dataset.copyTarget);
@@ -781,6 +783,7 @@
     });
     updateProgress();
     updateToc();
+    requestAnimationFrame(() => requestAnimationFrame(updateToc));
   </script>
 </body>
 </html>
