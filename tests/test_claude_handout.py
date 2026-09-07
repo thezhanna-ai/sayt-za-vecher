@@ -1,53 +1,56 @@
+from html.parser import HTMLParser
 from pathlib import Path
 import unittest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-HTML = ROOT / "claude-knopka-za-knopkoy" / "index.html"
+PRIMARY = ROOT / "claude-knopka-za-knopkoy" / "index.html"
+SECONDARY = ROOT / "claude-knopka-za-knopkoy" / "o-sebe" / "index.html"
+
+
+class HeadingParser(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.h1 = 0
+
+    def handle_starttag(self, tag, attrs):
+        if tag == "h1":
+            self.h1 += 1
 
 
 class ClaudeHandoutTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.html = HTML.read_text(encoding="utf-8")
+        cls.primary = PRIMARY.read_text(encoding="utf-8")
+        cls.secondary = SECONDARY.read_text(encoding="utf-8")
 
-    def test_second_handout_has_permanent_entry_point(self):
-        self.assertIn('id="o-sebe"', self.html)
-        self.assertIn('id="import-chatgpt"', self.html)
-        self.assertIn("Как рассказать Claude о себе", self.html)
-        self.assertNotIn("Раздел 02", self.html)
+    def test_articles_are_separate_pages(self):
+        primary_parser = HeadingParser()
+        primary_parser.feed(self.primary)
+        secondary_parser = HeadingParser()
+        secondary_parser.feed(self.secondary)
+        self.assertEqual(primary_parser.h1, 1)
+        self.assertEqual(secondary_parser.h1, 1)
+        self.assertIn("<title>Как подключить Claude из России</title>", self.primary)
+        self.assertIn("<title>Как рассказать Claude о себе</title>", self.secondary)
+        self.assertNotIn('id="o-sebe"', self.primary)
 
-    def test_current_claude_controls_are_named(self):
-        for label in (
-            "What should Claude call you?",
-            "What best describes your work?",
-            "Instructions for Claude",
-            "Appearance",
-            "Chat font",
-            "Generate memory from chats",
-            "Start import",
-        ):
-            self.assertIn(label, self.html)
-
-    def test_real_settings_screenshots_are_used(self):
-        self.assertIn("assets/claude-settings-general.png", self.html)
-        self.assertIn("assets/claude-settings-memory.png", self.html)
+    def test_primary_article_uses_approved_structure(self):
+        self.assertIn('id="dostup"', self.primary)
+        self.assertIn('id="google-account"', self.primary)
+        self.assertIn('class="branch-grid"', self.primary)
+        self.assertIn("<h3>Выбери страну и сохрани IP</h3>", self.primary)
+        self.assertNotIn('class="step-index"', self.primary)
 
     def test_desktop_toc_geometry_matches_canon(self):
-        self.assertIn("grid-template-columns: 210px minmax(0, 720px)", self.html)
-        self.assertIn("gap: 32px", self.html)
-        self.assertIn("width: 260px", self.html)
-        self.assertIn("margin-left: -50px", self.html)
+        self.assertIn("grid-template-columns: 210px minmax(0, 720px)", self.primary)
+        self.assertIn("gap: 32px", self.primary)
+        self.assertIn("width: 260px", self.primary)
+        self.assertIn("margin-left: -50px", self.primary)
+        self.assertNotIn("padding-left: 50px", self.primary)
 
-    def test_copyable_instructions_are_present(self):
-        self.assertIn('id="instructions-template"', self.html)
-        self.assertIn('data-copy-target="instructions-template"', self.html)
-        self.assertIn("Кто я", self.html)
-
-    def test_only_official_sources_describe_claude_settings(self):
-        self.assertIn("10185728-understanding-claude-s-personalization-features", self.html)
-        self.assertIn("11817273-use-claude-s-chat-search-and-memory", self.html)
-        self.assertIn("12123587-import-and-export-your-memory-from-claude", self.html)
+    def test_primary_asset_exists(self):
+        self.assertTrue((PRIMARY.parent / "assets" / "claude-login-google.png").exists())
 
 
 if __name__ == "__main__":

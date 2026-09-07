@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Claude.ai: кнопка за кнопкой. Пошаговый гид по подключению, персональным инструкциям, памяти и переносу контекста из ChatGPT">
+  <meta name="description" content="Пошаговая инструкция по подключению Claude.ai из России: VPN, Google-аккаунт, Gmail и подтверждение зарубежного телефонного номера">
   <meta name="theme-color" content="#F8F7F2">
-  <title>Claude.ai: кнопка за кнопкой</title>
+  <title>Как подключить Claude из России</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;600&amp;family=Unbounded:wght@700&amp;display=swap" rel="stylesheet">
@@ -15,8 +15,8 @@
       --emerald-mid: #1F4A43;
       --paper: #F8F7F2;
       --paper-2: #F0E8D8;
-      --sage-note: #EEF2EE;
-      --sage-line: #CFD8D1;
+      --sage-note: #E2E8E9;
+      --sage-line: #BBC7CA;
       --accent: #E86F4A;
       --ok: #5F7F68;
       --ink: #1E2926;
@@ -75,9 +75,11 @@
       line-height: 1;
       text-decoration: none;
       white-space: nowrap;
-      transition: background .2s ease;
+      box-shadow: 0 3px 0 rgba(16, 47, 48, .2);
+      transition: transform .12s ease, box-shadow .12s ease, background .2s ease;
     }
-    .camp-link:hover { background: var(--emerald); color: var(--white) }
+    .camp-link:hover { transform: translateY(1px); background: var(--emerald); color: var(--white); box-shadow: 0 2px 0 rgba(16, 47, 48, .24) }
+    .camp-link:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(16, 47, 48, .24) }
 
     .page-shell {
       max-width: 1244px;
@@ -100,9 +102,7 @@
     .toc-label { margin: 0 0 15px; color: var(--muted); font: 700 11px/1.2 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .18em; text-transform: uppercase }
     .toc a {
       position: relative;
-      display: grid;
-      grid-template-columns: 24px 1fr;
-      gap: 8px;
+      display: block;
       padding: 8px 0 8px 12px;
       color: var(--muted);
       font-size: 13.5px;
@@ -113,10 +113,9 @@
     .toc a::before { content: ""; position: absolute; left: -1px; top: 5px; bottom: 5px; width: 2px; background: transparent }
     .toc a.active { color: var(--accent); font-weight: 700 }
     .toc a.active::before { background: var(--accent) }
-    .toc-index { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-variant-numeric: tabular-nums }
 
     @media (min-width: 1000px) {
-      .toc { width: 260px; margin-left: -50px; padding-left: 50px }
+      .toc { width: 260px; margin-left: -50px }
     }
 
     .mobile-toc { display: none }
@@ -171,29 +170,29 @@
     ul { padding-left: 24px }
     li { margin: 8px 0 }
 
-    .requirements { display: grid; gap: 0; margin: 25px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--line) }
-    .requirements li { display: grid; grid-template-columns: 34px 1fr; gap: 12px; margin: 0; padding: 14px 0; border-bottom: 1px solid var(--line) }
-    .requirements b { color: var(--accent); font: 700 14px/1.8 ui-monospace, SFMono-Regular, Menlo, monospace }
+    .requirements { display: grid; gap: 0; margin: 25px 0 0; padding-left: 32px; list-style: decimal; border-top: 1px solid var(--line) }
+    .requirements li { margin: 0; padding: 14px 0 14px 7px; border-bottom: 1px solid var(--line) }
     .branch-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 32px 0 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line) }
     .branch { padding: 24px 24px 23px 0 }
     .branch + .branch { padding-left: 24px; border-left: 1px solid var(--line) }
     .branch-label { margin: 0 0 7px; color: var(--accent); font: 700 11px/1.3 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .12em; text-transform: uppercase }
+    .branch-copy-offset { margin-top: 26px }
     .branch p:last-child { margin-bottom: 0 }
 
-    .step { display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 18px; margin-top: 36px; padding: 29px 0 2px; border-top: 1px solid var(--line) }
-    .step-index { color: var(--accent); font: 700 18px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace }
+    .step { margin-top: 36px; padding: 29px 0 2px; border-top: 1px solid var(--line) }
     .step-copy > p { max-width: 660px }
     .minor { color: var(--muted); font-size: 16px; line-height: 1.65 }
     .result { margin: 23px 0 0; padding: 2px 0 2px 19px; border-left: 3px solid var(--ok); color: var(--emerald-mid) }
     .result p { margin: 0 }
     .path { padding: 2px 6px; border-radius: 5px; background: rgba(16, 47, 48, .08); color: var(--emerald); font: 600 .9em/1.4 ui-monospace, SFMono-Regular, Menlo, monospace }
 
-    .notice { margin: 26px 0 0; padding: 20px 22px; border: 1px solid var(--line); border-radius: 11px; background: var(--paper-2) }
+    .notice { margin: 26px 0 0; padding: 12px 22px; border: 1px solid var(--sage-line); border-radius: 11px; background: var(--sage-note) }
     .mail-notice { border-color: var(--sage-line); background: var(--sage-note) }
     .notice p:last-child { margin-bottom: 0 }
     .notice-title { color: var(--emerald); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; font-weight: 750 }
-    .account-note { margin: 26px 0 0; padding: 18px 22px; border-left: 4px solid var(--ok); border-radius: 0 11px 11px 0; background: var(--white) }
+    .account-note { margin: 26px 0 0; padding: 10px 22px; border: 1px solid var(--sage-line); border-left: 4px solid var(--ok); border-radius: 0 11px 11px 0; background: var(--sage-note) }
     .account-note p { margin: 0 }
+    .inline-warning { padding: 2px 5px; border-radius: 4px; background: var(--sage-note); color: var(--emerald); box-decoration-break: clone; -webkit-box-decoration-break: clone }
 
     figure { margin: 27px 0 0 }
     .browser-shot { position: relative; width: min(100%, 620px); overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: var(--white) }
@@ -245,8 +244,9 @@
     .cta .section-label { color: var(--paper-2) }
     .cta h2 { color: var(--white) }
     .cta p { color: var(--paper-2) }
-    .button { display: inline-flex; min-height: 44px; align-items: center; margin-top: 6px; padding: 0 17px; border-radius: 10px; background: var(--accent); color: var(--white); font: 750 15px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; text-decoration: none }
-    .button:hover { color: var(--white); filter: brightness(.94) }
+    .button { display: inline-flex; min-height: 44px; align-items: center; margin-top: 6px; padding: 0 17px; border-radius: 10px; background: var(--accent); color: var(--white); box-shadow: 0 3px 0 rgba(16, 47, 48, .2); font: 750 15px/1 -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; text-decoration: none; transition: transform .12s ease, box-shadow .12s ease, filter .12s ease }
+    .button:hover { transform: translateY(1px); color: var(--white); box-shadow: 0 2px 0 rgba(16, 47, 48, .24); filter: brightness(.94) }
+    .button:active { transform: translateY(2px); box-shadow: 0 1px 0 rgba(16, 47, 48, .24) }
     .foot { margin-top: 38px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font: 500 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif }
 
     @media (max-width: 860px) {
@@ -270,7 +270,7 @@
       .branch-grid { grid-template-columns: 1fr }
       .branch { padding: 21px 0 }
       .branch + .branch { padding-left: 0; border-top: 1px solid var(--line); border-left: 0 }
-      .step { grid-template-columns: 38px minmax(0, 1fr); gap: 13px }
+      .branch-copy-offset { margin-top: 0 }
       .marker { width: 29px; height: 29px; font-size: 14px; box-shadow: 0 0 0 4px rgba(248, 247, 242, .92) }
       .memory-grid { grid-template-columns: 1fr }
       .memory-card { padding: 21px 0 }
@@ -284,8 +284,6 @@
       .camp-link { padding: 0 10px; font-size: 12px }
       .page-shell { padding-right: 14px; padding-left: 14px }
       .setup-note { padding: 14px 17px }
-      .step { grid-template-columns: 1fr }
-      .step-index { margin-bottom: -8px }
       .screen-key { display: grid; gap: 7px }
       .prompt-box { padding: 55px 15px 18px }
       .prompt-box pre { font-size: 12px }
@@ -313,50 +311,38 @@
   <div class="page-shell">
     <nav class="toc" aria-label="Содержание">
       <p class="toc-label">Содержание</p>
-      <a class="active" href="#dostup"><span class="toc-index">01</span><span>Доступ из России</span></a>
-      <a href="#podgotovit"><span class="toc-index">02</span><span>Что подготовить</span></a>
-      <a href="#vpn"><span class="toc-index">03</span><span>Проверка VPN</span></a>
-      <a href="#google-account"><span class="toc-index">04</span><span>Google-аккаунт</span></a>
-      <a href="#claude-login"><span class="toc-index">05</span><span>Экран входа</span></a>
-      <a href="#phone-verification"><span class="toc-index">06</span><span>Подтверждение номера</span></a>
-      <a href="#first-chat"><span class="toc-index">07</span><span>Первый чат</span></a>
-      <a href="#troubleshooting"><span class="toc-index">08</span><span>Если вход не получился</span></a>
-      <a href="#checklist"><span class="toc-index">09</span><span>Проверка</span></a>
-      <a href="#o-sebe"><span class="toc-index">10</span><span>Как рассказать о себе</span></a>
-      <a href="#instructions"><span class="toc-index">11</span><span>Имя и инструкции</span></a>
-      <a href="#appearance"><span class="toc-index">12</span><span>Тема и шрифт</span></a>
-      <a href="#memory"><span class="toc-index">13</span><span>Память</span></a>
-      <a href="#import-chatgpt"><span class="toc-index">14</span><span>Перенос из ChatGPT</span></a>
-      <a href="#proverka-o-sebe"><span class="toc-index">15</span><span>Проверка настроек</span></a>
-      <a href="#sources"><span class="toc-index">16</span><span>Источники</span></a>
+      <a class="active" href="#dostup"><span>Как подключить Claude из России</span></a>
+      <a href="#podgotovit"><span>Что подготовить</span></a>
+      <a href="#vpn"><span>Проверить VPN</span></a>
+      <a href="#google-account"><span>Подготовить Google-аккаунт</span></a>
+      <a href="#claude-login"><span>Открыть Claude и войти через Google</span></a>
+      <a href="#phone-verification"><span>Подтвердить номер, если Claude запросил SMS</span></a>
+      <a href="#first-chat"><span>Проверить первый чат</span></a>
+      <a href="#troubleshooting"><span>Что проверить, если вход не получился</span></a>
+      <a href="#checklist"><span>Семь пунктов перед первым сообщением</span></a>
+      <a href="#sources"><span>Источники</span></a>
     </nav>
 
     <main>
       <details class="mobile-toc">
         <summary>Содержание гида</summary>
         <nav aria-label="Содержание на телефоне">
-          <a href="#dostup">01. Доступ из России</a>
-          <a href="#podgotovit">02. Что подготовить</a>
-          <a href="#vpn">03. Проверка VPN</a>
-          <a href="#google-account">04. Google-аккаунт</a>
-          <a href="#claude-login">05. Экран входа</a>
-          <a href="#phone-verification">06. Подтверждение номера</a>
-          <a href="#first-chat">07. Первый чат</a>
-          <a href="#troubleshooting">08. Если вход не получился</a>
-          <a href="#checklist">09. Проверка</a>
-          <a href="#o-sebe">10. Как рассказать о себе</a>
-          <a href="#instructions">11. Имя и инструкции</a>
-          <a href="#appearance">12. Тема и шрифт</a>
-          <a href="#memory">13. Память</a>
-          <a href="#import-chatgpt">14. Перенос из ChatGPT</a>
-          <a href="#proverka-o-sebe">15. Проверка настроек</a>
-          <a href="#sources">16. Источники</a>
+          <a href="#dostup">Как подключить Claude из России</a>
+          <a href="#podgotovit">Что подготовить</a>
+          <a href="#vpn">Проверить VPN</a>
+          <a href="#google-account">Подготовить Google-аккаунт</a>
+          <a href="#claude-login">Открыть Claude и войти через Google</a>
+          <a href="#phone-verification">Подтвердить номер, если Claude запросил SMS</a>
+          <a href="#first-chat">Проверить первый чат</a>
+          <a href="#troubleshooting">Что проверить, если вход не получился</a>
+          <a href="#checklist">Семь пунктов перед первым сообщением</a>
+          <a href="#sources">Источники</a>
         </nav>
       </details>
 
       <article>
         <header class="article-header" id="dostup" data-handout-title="Как подключить Claude из России">
-          <p class="eyebrow">Claude.ai · кнопка за кнопкой · 01</p>
+          <p class="eyebrow">Claude.ai · кнопка за кнопкой</p>
           <h1>Как подключить Claude из России</h1>
           <p class="meta">ПОШАГОВАЯ ИНСТРУКЦИЯ · ОБНОВЛЕНО 7 СЕНТЯБРЯ 2026</p>
           <p class="lead">Путь от проверки подключения до первого открытого чата. На каждом этапе показано, какой экран появится и что выбрать</p>
@@ -365,7 +351,7 @@
           </aside>
           <div class="intro-copy">
             <p>Эта инструкция относится к работе в чате <b>Claude.ai</b>. Для платных подписок рекомендации будут строже и появятся отдельным документом. Ссылка на него будет добавлена сюда позже</p>
-            <p>В инструкции показан рекомендуемый вариант регистрации и входа через Google-аккаунт с почтой Gmail. Claude также поддерживает другие адреса, но отдельно их не разбираем: логика входа та же</p>
+            <p>В инструкции показан рекомендуемый вариант регистрации и входа через Google-аккаунт с почтой Gmail. Claude также поддерживает другие международные email-адреса (не российские локальные), но отдельно их не разбираем: логика входа та же</p>
             <aside class="route-note" aria-label="Короткий маршрут">
               <h2>Короткий маршрут</h2>
               <p>Стабильный VPN, адрес claude.ai, кнопка Continue with Google и доступный зарубежный телефонный номер, если Claude запросит подтверждение</p>
@@ -377,37 +363,21 @@
           <p class="section-label">До открытия Claude</p>
           <h2>Что подготовить</h2>
           <p>Для рекомендуемого маршрута понадобятся три вещи</p>
-          <ul class="requirements">
-            <li><b>01</b><span>Стабильный VPN со страной, где Claude доступен</span></li>
-            <li><b>02</b><span>Google-аккаунт с Gmail для рекомендуемого в этой инструкции способа входа</span></li>
-            <li><b>03</b><span>Реальный зарубежный телефонный номер, принимающий SMS, если Claude запросит подтверждение</span></li>
-          </ul>
-          <div class="branch-grid">
-            <div class="branch">
-              <p class="branch-label">Google-аккаунт уже есть</p>
-              <h3>Использовать существующий аккаунт</h3>
-              <p>Если для нейросетей уже создан отдельный Google-аккаунт, используй именно его. Открой Gmail и убедись, что ты помнишь пароль</p>
-            </div>
-            <div class="branch">
-              <p class="branch-label">Google-аккаунта нет</p>
-              <h3>Сначала создать аккаунт</h3>
-              <p>Пройди регистрацию с включённым VPN поддерживаемой страны. Не выбирай российскую локацию для нового аккаунта</p>
-            </div>
-          </div>
-          <aside class="account-note">
-            <p><b>Лучше завести для нейросетей отдельный Google-аккаунт.</b> Тогда рассылки и уведомления не будут смешиваться с основной почтой, а рабочий аккаунт останется чистым, если один из сервисов заблокирует вход. Если отдельный аккаунт создавать не хочется, можно использовать старый личный Gmail. Аккаунт, которым ты пользуешься больше 10 лет, проходит стабильнее свежесозданного</p>
-          </aside>
+          <ol class="requirements">
+            <li>Стабильный VPN со страной, где Claude доступен</li>
+            <li>Google-аккаунт с Gmail для рекомендуемого в этой инструкции способа входа</li>
+            <li>Реальный зарубежный телефонный номер, принимающий SMS, если Claude запросит подтверждение</li>
+          </ol>
         </section>
 
         <section class="content-section" id="vpn">
           <p class="section-label">Шаг 1</p>
           <h2>Проверить VPN</h2>
           <div class="step">
-            <div class="step-index">01</div>
             <div class="step-copy">
-              <h3>Выбрать страну и сохранить IP</h3>
-              <p>Включи VPN и выбери страну, где Claude доступен. Если приложение предлагает только страну, этого достаточно: отдельный сервер искать не нужно</p>
-              <p>Открой <a href="https://2ip.ru/">2ip.ru</a> и запиши IP целиком, например <span class="path">198.51.100.42</span>, или сделай скриншот. Через день или два снова зайди на 2ip.ru с включённым VPN и сравни цифры. Флаг страны может остаться тем же, а IP измениться</p>
+              <h3>Выбери страну и сохрани IP</h3>
+              <p>Включи VPN и выбери страну, где Claude доступен</p>
+              <p>Открой <a href="https://2ip.ru/">2ip.ru</a> и запиши IP целиком, например <span class="path">198.51.100.42</span>, или сделай скриншот. Через день или два снова зайди на 2ip.ru с включённым VPN и сравни цифры. Если IP изменился, такой VPN не обеспечивает стабильный IP-адрес. Для работы с Claude.ai это плохо: за скачки IP можно получить блокировку. В этом случае лучше выбрать другой VPN</p>
               <p class="minor">Смотри на цифры адреса, а не только на страну. Частая смена IP может привести к дополнительной проверке или блокировке аккаунта</p>
               <div class="result"><p><b>Результат:</b> 2ip.ru показывает выбранную зарубежную страну, а IP сохранён для повторной проверки</p></div>
             </div>
@@ -417,27 +387,39 @@
         <section class="content-section" id="google-account">
           <p class="section-label">Шаг 2</p>
           <h2>Подготовить Google-аккаунт</h2>
+          <div class="branch-grid">
+            <div class="branch">
+              <p class="branch-label">Google-аккаунт уже есть</p>
+              <h3>Использовать существующий аккаунт</h3>
+              <p>Открой Gmail и проверь вход. Если ты помнишь пароль и вход работает, этот аккаунт можно использовать для входа в Claude.ai</p>
+            </div>
+            <div class="branch">
+              <p class="branch-label">Google-аккаунта нет</p>
+              <h3>Сначала создать аккаунт</h3>
+              <p class="branch-copy-offset">Пройди регистрацию с включённым VPN поддерживаемой страны. <strong class="inline-warning">Не выбирай российскую локацию для нового аккаунта</strong></p>
+            </div>
+          </div>
+          <aside class="account-note">
+            <p><b>Лучше завести для нейросетей отдельный Google-аккаунт.</b> Тогда рассылки и уведомления не будут смешиваться с основной почтой, а рабочий аккаунт останется чистым, если один из сервисов заблокирует вход. Если отдельный аккаунт создавать не хочется, можно использовать старый личный Gmail. Аккаунт, которым ты пользуешься больше 10 лет, проходит стабильнее свежесозданного</p>
+          </aside>
           <div class="step">
-            <div class="step-index">02</div>
             <div class="step-copy">
               <h3>Если Gmail уже есть</h3>
-              <p>Открой Gmail в отдельной вкладке. Если вход работает и ты помнишь пароль, этот аккаунт можно использовать для входа в Claude.ai через кнопку <b>Continue with Google</b>. Новый аккаунт создавать не нужно</p>
-              <div class="result"><p><b>Результат:</b> Gmail открывается, и ты помнишь пароль</p></div>
+              <p>Открой Gmail в отдельной вкладке. Если ты помнишь пароль и вход работает, этот аккаунт можно использовать для входа в Claude.ai через кнопку <b>Continue with Google</b>. Новый аккаунт создавать не нужно</p>
             </div>
           </div>
           <div class="step">
-            <div class="step-index">03</div>
             <div class="step-copy">
               <h3>Если Google-аккаунта нет</h3>
               <p>Не выключая VPN, открой <a href="https://accounts.google.com/signup">страницу создания Google-аккаунта</a>. Выбери <span class="path">Создать аккаунт → Для личного использования</span></p>
-              <p>Заполни имя и дату рождения, придумай адрес Gmail и пароль. Если Google запросит телефон, укажи зарубежный номер, к которому у тебя сохранится доступ. Не выбирай российскую локацию в новом аккаунте</p>
+              <p>Заполни имя и дату рождения, придумай адрес Gmail и пароль. Если Google запросит телефон, укажи зарубежный номер, к которому у тебя сохранится доступ. <strong class="inline-warning">Не выбирай российскую локацию в новом аккаунте</strong></p>
               <p class="minor">Полностью закончи регистрацию Google и открой Gmail. После этого переходи в Claude, оставив тот же VPN</p>
               <div class="result"><p><b>Результат:</b> почта Gmail открывается, аккаунт не привязан к российской локации</p></div>
             </div>
           </div>
           <aside class="notice mail-notice">
             <p class="notice-title">Почему здесь не используются Яндекс.Почта и Mail.ru</p>
-            <p>Для регистрации используй email международного почтового сервиса, например Gmail или Outlook. Не подойдут временная почта и адреса на российских почтовых доменах Яндекса и Mail.ru: они не проходят верификацию аккаунта Anthropic</p>
+            <p>Для регистрации используй email международного почтового сервиса, например Gmail. Не подойдут временная почта и адреса на российских почтовых доменах Яндекса и Mail.ru: они не проходят верификацию аккаунта Anthropic</p>
           </aside>
         </section>
 
@@ -445,9 +427,8 @@
           <p class="section-label">Шаг 3</p>
           <h2>Открыть Claude и войти через Google</h2>
           <div class="step">
-            <div class="step-index">04</div>
             <div class="step-copy">
-              <h3>Открыть адрес claude.ai</h3>
+              <h3>Открой адрес claude.ai</h3>
               <p>Введи в адресную строку браузера <b>claude.ai</b> и нажми Enter. На экране входа нажми <b>Continue with Google</b>, выбери подготовленный аккаунт и подтверди вход</p>
               <figure>
                 <div class="browser-shot">
@@ -470,19 +451,17 @@
           <p class="section-label">Шаг 4</p>
           <h2>Подтвердить номер, если Claude запросил SMS</h2>
           <div class="step">
-            <div class="step-index">05</div>
             <div class="step-copy">
-              <h3>Использовать постоянный зарубежный номер</h3>
+              <h3>Используй постоянный зарубежный номер</h3>
               <p>Для подтверждения нужен постоянный зарубежный телефонный номер. Российский номер не подходит. Используй реальную зарубежную SIM или eSIM, которая принимает обычные SMS</p>
-              <p>Страна номера должна совпадать со страной IP. Для платной подписки понадобится ещё и карта той же страны, но это будет разобрано в отдельной инструкции. Сохрани доступ к номеру: Claude может снова запросить подтверждение при следующем входе</p>
+              <p>В идеале страна номера должна совпадать со страной IP. Для платной подписки понадобится ещё и карта той же страны, но это будет разобрано в отдельной инструкции. Сохрани доступ к номеру: Claude может снова запросить подтверждение при следующем входе</p>
               <p class="minor">Номера VoIP и номера, которые не принимают обычные SMS, могут быть отклонены</p>
               <div class="result"><p><b>Результат:</b> код принят, Claude открывает экран нового чата</p></div>
             </div>
           </div>
           <div class="step">
-            <div class="step-index">06</div>
             <div class="step-copy">
-              <h3>Не использовать номер из SMS-активатора</h3>
+              <h3>Не используй номер из SMS-активатора</h3>
               <p>Виртуальные номера из SMS-активаторов массово находятся в чёрных списках. Такой номер мог использоваться много раз и не пройти проверку Anthropic</p>
               <p>Для регистрации нужен реальный номер с постоянным доступом, а не одноразовая аренда на несколько минут</p>
               <div class="result"><p><b>Если номер отклонён:</b> не отправляй его повторно много раз. Возьми другую реальную SIM или eSIM той же страны, что IP</p></div>
@@ -494,9 +473,8 @@
           <p class="section-label">Шаг 5</p>
           <h2>Проверить первый чат</h2>
           <div class="step">
-            <div class="step-index">07</div>
             <div class="step-copy">
-              <h3>Отправить короткое сообщение</h3>
+              <h3>Отправь короткое сообщение</h3>
               <p>Напиши в новом чате короткий вопрос. Если Claude отвечает, вход завершён</p>
               <p>Для следующих входов сохрани выбранную страну, записанный IP, способ входа и доступ к тому же номеру подтверждения</p>
               <div class="result"><p><b>На следующий вход:</b> включи VPN, выбери ту же страну, открой claude.ai и используй тот же аккаунт</p></div>
@@ -521,7 +499,7 @@
           </details>
           <details>
             <summary>Российский номер не принимается</summary>
-            <p>Используй реальную зарубежную SIM или eSIM, которая принимает SMS. Страна номера должна совпадать со страной IP</p>
+            <p>Используй реальную зарубежную SIM или eSIM, которая принимает SMS. В идеале страна номера должна совпадать со страной IP</p>
           </details>
           <details>
             <summary>Код не приходит</summary>
@@ -551,166 +529,6 @@
           <p class="future-note">Этот гид будет дополняться разделами серии для новичков «Claude.ai: кнопка за кнопкой». Список готовых разделов и ссылки на них будут появляться ниже</p>
         </section>
 
-        <section class="content-section" id="o-sebe" data-handout-title="Как рассказать Claude о себе">
-          <p class="section-label">Настройка под себя</p>
-          <h2>Как рассказать Claude о себе</h2>
-          <p>Один раз заполни имя, роль и правила ответов. Claude будет учитывать их в новых чатах, а память постепенно соберёт рабочий контекст</p>
-          <aside class="route-note" aria-label="Короткий маршрут настройки Claude">
-            <h3>Короткий маршрут</h3>
-            <p>Settings → General → имя и Instructions for Claude → Appearance и Chat font → Memory → проверка в новом чате</p>
-          </aside>
-
-          <div class="step">
-            <div class="step-index">01</div>
-            <div class="step-copy">
-              <h3>Открыть настройки</h3>
-              <p>В левом нижнем углу Claude нажми на свои инициалы или имя. В открывшемся меню выбери <b>Settings</b>. В левой колонке настроек открой <b>General</b></p>
-              <div class="result"><p><b>Результат:</b> открыт экран Profile с полями имени, инструкций и настройками внешнего вида</p></div>
-            </div>
-          </div>
-
-          <figure>
-            <div class="browser-shot">
-              <img src="assets/claude-settings-general.png" alt="Актуальный экран General в настройках Claude">
-              <span class="shot-outline general-nav" data-n="1" aria-hidden="true"></span>
-              <span class="shot-outline general-instructions" data-n="2" aria-hidden="true"></span>
-              <span class="shot-outline general-appearance" data-n="3" aria-hidden="true"></span>
-            </div>
-            <ul class="screen-key" aria-label="Пояснения к экрану General">
-              <li><b>1</b> Раздел General</li>
-              <li><b>2</b> Имя, роль и инструкции</li>
-              <li><b>3</b> Тема и шрифт</li>
-            </ul>
-            <figcaption>Экран Claude на 7 сентября 2026 года. Оранжевые рамки показывают три нужные зоны</figcaption>
-          </figure>
-        </section>
-
-        <section class="content-section" id="instructions">
-          <p class="section-label">Шаг 2</p>
-          <h2>Заполнить имя и постоянные инструкции</h2>
-          <p>В поле <b>What should Claude call you?</b> напиши, как к тебе обращаться. В <b>What best describes your work?</b> выбери ближайшую роль</p>
-          <p>Поле <b>Instructions for Claude</b> важнее остальных: сюда попадают правила, которые Claude должен учитывать во всех чатах. Добавь только стабильный контекст - кто ты, чем занимаешься, какой формат ответа тебе подходит и чего делать нельзя</p>
-
-          <div class="prompt-box">
-            <button class="copy-button" type="button" data-copy-target="instructions-template">Скопировать</button>
-            <pre id="instructions-template">Кто я
-Меня зовут [имя]. Я [профессия или роль]. Работаю в [ниша] и помогаю [кому] получить [результат]
-
-Мои текущие задачи
-Чаще всего я прошу тебя помогать с [3-5 типов задач]. Сейчас мой главный приоритет: [цель]
-
-Контекст моей работы
-Мой продукт или проект: [что это]. Моя аудитория: [кто]. Важно учитывать: [ограничения, страна, платформа, уровень опыта]
-
-Как со мной разговаривать
-Обращайся ко мне на [ты или вы]. Отвечай [коротко или подробно], простым языком, без канцелярита и нейросетевых клише. Сначала давай готовый результат, затем коротко объясняй решение
-
-Как оформлять ответы
-Используй [абзацы, списки, таблицы] только когда они помогают. Не повторяй мой вопрос. Не добавляй длинное вступление. Если ответ можно дать в двух строках, дай его в двух строках
-
-Как принимать решения
-Не задавай вопрос, если ответ следует из контекста. Если данных действительно не хватает, задай один конкретный вопрос. Не выдумывай цифры, факты, ссылки и мой опыт
-
-Как проверять результат
-Перед финальным ответом проверь [факты, расчёты, ссылки, формат, ограничения]. Если что-то не проверено, назови это прямо
-
-Мои постоянные правила
-- [правило 1]
-- [правило 2]
-- [правило 3]
-
-Пример ответа, который мне нравится
-[вставь короткий реальный образец]</pre>
-          </div>
-
-          <aside class="notice mail-notice">
-            <p class="notice-title">Не превращай инструкции в биографию</p>
-            <p>Claude нужен рабочий контекст, а не вся история жизни. Если правило относится только к одной задаче, пиши его в конкретном чате. В Instructions оставляй то, что должно действовать почти всегда</p>
-          </aside>
-          <div class="result"><p><b>Результат:</b> в новом чате Claude обращается к тебе правильно и соблюдает заданный формат без повторного объяснения</p></div>
-        </section>
-
-        <section class="content-section" id="appearance">
-          <p class="section-label">Шаг 3</p>
-          <h2>Настроить тему и шрифт</h2>
-          <p>На том же экране General прокрути до блока <b>Preferences</b>. В строке <b>Appearance</b> выбери системную, светлую или тёмную тему. В <b>Chat font</b> выбери шрифт, который легче читать</p>
-          <p class="minor">Эти настройки меняют только внешний вид Claude. На качество и содержание ответов они не влияют</p>
-          <div class="result"><p><b>Результат:</b> длинные ответы удобно читать, глаза не устают от выбранной темы и шрифта</p></div>
-        </section>
-
-        <section class="content-section" id="memory">
-          <p class="section-label">Шаг 4</p>
-          <h2>Включить память и посмотреть, что в ней хранится</h2>
-          <p>В левой колонке Settings открой <b>Memory</b>. Переключатель <b>Generate memory from chats</b> разрешает Claude собирать полезный контекст из разговоров. Создание памяти из истории может занять некоторое время</p>
-          <p>Ниже будут появляться темы памяти. Их можно просматривать, уточнять и удалять. Если хочешь исправить конкретный факт, напиши это Claude в строке внизу или прямо в обычном чате</p>
-
-          <figure>
-            <div class="browser-shot">
-              <img src="assets/claude-settings-memory.png" alt="Актуальный экран Memory в настройках Claude">
-              <span class="shot-outline memory-nav" data-n="1" aria-hidden="true"></span>
-              <span class="shot-outline memory-switch" data-n="2" aria-hidden="true"></span>
-              <span class="shot-outline memory-import" data-n="3" aria-hidden="true"></span>
-            </div>
-            <ul class="screen-key" aria-label="Пояснения к экрану Memory">
-              <li><b>1</b> Раздел Memory</li>
-              <li><b>2</b> Память из разговоров</li>
-              <li><b>3</b> Перенос из другого ИИ</li>
-            </ul>
-            <figcaption>Экран Memory в Claude на 7 сентября 2026 года. Рамками отмечены включение памяти и импорт контекста</figcaption>
-          </figure>
-
-          <div class="memory-grid">
-            <div class="memory-card">
-              <p class="branch-label">Instructions</p>
-              <h3>Правила, которые задаёшь ты</h3>
-              <p>Язык, тон, формат и постоянные ограничения. Для важных требований это главное место</p>
-            </div>
-            <div class="memory-card">
-              <p class="branch-label">Memory</p>
-              <h3>Контекст, который накапливает Claude</h3>
-              <p>Проекты, предпочтения и факты, которые появляются в разговорах и меняются со временем</p>
-            </div>
-          </div>
-
-          <aside class="notice">
-            <p class="notice-title">Чувствительные темы включаются отдельно</p>
-            <p>Переключатель <b>Include sensitive topics in memory</b> нужен только если ты осознанно хочешь сохранять сведения о здоровье, религии и других чувствительных темах. Без необходимости оставь его выключенным</p>
-          </aside>
-          <p class="minor">Инкогнито-чат не использует историю и память и не добавляет туда новый разговор. Отдельный разбор инкогнито появится дальше в этом гиде</p>
-        </section>
-
-        <section class="content-section" id="import-chatgpt">
-          <p class="section-label">Шаг 5</p>
-          <h2>Перенести в Claude то, что уже знает о тебе ChatGPT</h2>
-          <p>Если ты давно работаешь в ChatGPT, не обязательно заново собирать весь контекст вручную. В Claude открой <span class="path">Settings → Memory</span> и найди блок <b>Import memory from other AI providers</b>. Кнопка <b>Start import</b> запускает встроенный перенос релевантных сведений из другого ИИ</p>
-          <p>Перенос может занять время. После него открой темы памяти и проверь, что Claude правильно понял твою роль, проекты и предпочтения. Это хороший старт, но постоянные правила ответа всё равно лучше продублировать в Instructions for Claude</p>
-          <aside class="notice mail-notice">
-            <p class="notice-title">Импорт пока экспериментальный</p>
-            <p>Он переносит полезный контекст, а не полную копию истории чатов. Не считай импорт резервной копией ChatGPT и проверь важные сведения вручную</p>
-          </aside>
-          <a class="future-link" href="#import-chatgpt">
-            <span>Инструкция готовится</span>
-            <strong>Подробный перенос из ChatGPT в Claude появится по этой ссылке в ближайшие несколько дней</strong>
-          </a>
-        </section>
-
-        <section class="content-section" id="proverka-o-sebe">
-          <p class="section-label">Финальная проверка</p>
-          <h2>Проверить настройку в новом чате</h2>
-          <p>Открой новый обычный чат и спроси: <b>«Что ты уже знаешь обо мне и как должен оформлять ответы?»</b>. Сравни ответ с инструкциями и темами памяти</p>
-          <div class="check-panel">
-            <h3>Claude настроен под тебя</h3>
-            <ul class="checklist">
-              <li>Claude правильно обращается к тебе</li>
-              <li>Верно называет твою роль, проект и аудиторию</li>
-              <li>Соблюдает язык, тон и нужную длину ответа</li>
-              <li>Не добавляет выдуманных фактов о тебе</li>
-              <li>В Memory нет лишних или ошибочных сведений</li>
-            </ul>
-          </div>
-          <div class="result"><p><b>Если что-то не совпало:</b> постоянное правило исправь в Instructions, а неверный факт удали или уточни в Memory</p></div>
-        </section>
-
         <section class="content-section" id="sources">
           <p class="section-label">Проверено 7 сентября 2026</p>
           <h2>Источники</h2>
@@ -719,9 +537,6 @@
             <li><a href="https://support.claude.com/en/articles/8287232-verify-your-phone-number">Anthropic: подтверждение номера телефона</a></li>
             <li><a href="https://support.claude.com/en/articles/13189465-log-in-to-your-claude-account">Anthropic: вход через Google или email</a></li>
             <li><a href="https://support.google.com/accounts/answer/27441">Google: создание Google-аккаунта</a></li>
-            <li><a href="https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features">Anthropic: персональные инструкции Claude</a></li>
-            <li><a href="https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context">Anthropic: память Claude и инкогнито-чаты</a></li>
-            <li><a href="https://support.claude.com/en/articles/12123587-import-and-export-your-memory-from-claude">Anthropic: импорт и экспорт памяти</a></li>
           </ul>
         </section>
 
@@ -738,10 +553,8 @@
 
   <script>
     const progress = document.querySelector('.progress');
-    const handoutTitle = document.querySelector('.handout-title');
     const links = [...document.querySelectorAll('.toc a')];
     const sections = links.map(link => document.querySelector(link.getAttribute('href'))).filter(Boolean);
-    const titleSections = [...document.querySelectorAll('[data-handout-title]')];
     const updateProgress = () => {
       const height = document.documentElement.scrollHeight - window.innerHeight;
       progress.style.width = `${height > 0 ? Math.min(100, window.scrollY / height * 100) : 0}%`;
@@ -753,11 +566,6 @@
         if (section.offsetTop <= marker) current = section;
       }
       links.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${current.id}`));
-      let currentTitle = titleSections[0];
-      for (const section of titleSections) {
-        if (section.offsetTop <= marker) currentTitle = section;
-      }
-      handoutTitle.textContent = currentTitle.dataset.handoutTitle;
     };
     addEventListener('scroll', () => {
       updateProgress();
