@@ -62,6 +62,7 @@ class ArticleContract(unittest.TestCase):
         self.assertIn("Я психолог", self.source)
         self.assertIn("онлайн-клуб для подростков", self.source)
         self.assertEqual(self.source.count('class="annotation memory-'), 4)
+        self.assertIn(".memory-nav { left: 2.8%; top: 33.5%;", self.source)
 
     def test_images_exist(self):
         expected = {"assets/claude-general-example.png", "assets/claude-memory.png"}
