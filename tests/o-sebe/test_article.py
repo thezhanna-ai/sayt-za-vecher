@@ -56,7 +56,6 @@ class ArticleContract(unittest.TestCase):
             "Chat font",
             "Generate memory from chats",
             "Include sensitive topics in memory",
-            "Start import",
         ):
             self.assertIn(label, self.source)
         self.assertIn("Я психолог", self.source)
@@ -90,7 +89,19 @@ class ArticleContract(unittest.TestCase):
         self.assertIn("margin-left: -50px", self.source)
         self.assertNotIn("padding-left: 50px", self.source)
         self.assertIn("window.innerHeight - 24", self.source)
+        self.assertIn("window.scrollY > 2", self.source)
         self.assertNotIn("Math.min(220", self.source)
+
+    def test_requested_copy_and_hierarchy(self):
+        self.assertIn('class="toc-group"', self.source)
+        self.assertIn("What should Claude call you? (Как к тебе обращаться?)", self.source)
+        self.assertIn("Appearance (Оформление)", self.source)
+        self.assertIn("в блоке 2 заполнены имя, сфера работы и инструкции", self.source)
+        self.assertIn("в блоке 3 выбраны оформление и шрифт", self.source)
+        self.assertNotIn("открыт экран Profile", self.source)
+        self.assertNotIn("Цифры разнесены", self.source)
+        self.assertIn("Подробная инструкция по переносу информации из ChatGPT будет добавлена позже", self.source)
+        self.assertNotIn("а ты проверила", self.source)
 
     def test_internal_links_resolve(self):
         for href in self.parser.hrefs:
@@ -101,9 +112,8 @@ class ArticleContract(unittest.TestCase):
         self.assertIsNone(re.search("[—–]", self.source))
 
     def test_final_cta_differs_from_first_article(self):
-        self.assertIn("Собери свою систему работы с ИИ", self.source)
-        self.assertIn("Настроить ИИ под свой проект", self.source)
-        self.assertNotIn("От чата Claude.ai к Claude Code", self.source)
+        self.assertIn("Claude.ai теперь настроен под тебя", self.source)
+        self.assertIn("собрать лендинг или бота для своего дела", self.source)
 
 
 if __name__ == "__main__":
