@@ -319,7 +319,7 @@
       <a href="#vpn"><span>Проверить VPN</span></a>
       <a href="#google-account"><span>Подготовить Google-аккаунт</span></a>
       <a href="#claude-login"><span>Открыть Claude и войти через Google</span></a>
-      <a href="#phone-verification"><span>Подтвердить номер, если Claude запросил SMS</span></a>
+      <a href="#phone-verification"><span>Подтвердить телефонный номер, если Claude запросил SMS</span></a>
       <a href="#first-chat"><span>Проверить первый чат</span></a>
       <a href="#troubleshooting"><span>Что проверить, если вход не получился</span></a>
       <a href="#checklist"><span>Семь пунктов перед первым сообщением</span></a>
@@ -335,7 +335,7 @@
           <a href="#vpn">Проверить VPN</a>
           <a href="#google-account">Подготовить Google-аккаунт</a>
           <a href="#claude-login">Открыть Claude и войти через Google</a>
-          <a href="#phone-verification">Подтвердить номер, если Claude запросил SMS</a>
+          <a href="#phone-verification">Подтвердить телефонный номер, если Claude запросил SMS</a>
           <a href="#first-chat">Проверить первый чат</a>
           <a href="#troubleshooting">Что проверить, если вход не получился</a>
           <a href="#checklist">Семь пунктов перед первым сообщением</a>
@@ -376,13 +376,16 @@
         <section class="content-section" id="vpn">
           <p class="section-label">Шаг 1</p>
           <h2>Проверить VPN</h2>
+          <aside class="setup-note">
+            <p>Мы не рекомендуем конкретный VPN-сервис. Бесплатные и массовые VPN часто используют общие или меняющиеся IP-адреса, поэтому подключение может работать нестабильно</p>
+          </aside>
           <div class="step">
             <div class="step-copy">
               <h3>Выбери страну и сохрани IP</h3>
               <p>Включи VPN и выбери страну, где Claude доступен</p>
-              <p>Открой <a href="https://2ip.ru/">2ip.ru</a> и запиши IP целиком, например <span class="path">198.51.100.42</span>, или сделай скриншот. Через день или два снова зайди на 2ip.ru с включённым VPN и сравни цифры. Если IP изменился, такой VPN не обеспечивает стабильный IP-адрес. Для работы с Claude.ai это плохо: за скачки IP можно получить блокировку. В этом случае лучше выбрать другой VPN</p>
-              <p class="minor">Смотри на цифры адреса, а не только на страну. Частая смена IP может привести к дополнительной проверке или блокировке аккаунта</p>
-              <div class="result"><p><b>Результат:</b> 2ip.ru показывает выбранную зарубежную страну, а IP сохранён для повторной проверки</p></div>
+              <p>Открой <a href="https://2ip.ru/">2ip.ru</a> и сохрани показанный IP-адрес. Через день снова подключись к той же локации VPN и сравни цифры. Если адрес изменился, VPN использует динамический IP</p>
+              <p class="minor">Изменение IP не означает автоматическую блокировку Claude. Сохранённый адрес нужен для диагностики, если при следующем входе появится ошибка</p>
+              <div class="result"><p><b>Результат:</b> ты проверил доступность локации и знаешь, постоянный или динамический IP выдаёт твой VPN</p></div>
             </div>
           </div>
         </section>
@@ -452,7 +455,7 @@
 
         <section class="content-section" id="phone-verification">
           <p class="section-label">Шаг 4</p>
-          <h2>Подтвердить номер, если Claude запросил SMS</h2>
+          <h2>Подтвердить телефонный номер, если Claude запросил SMS</h2>
           <div class="step">
             <div class="step-copy">
               <h3>Используй постоянный зарубежный номер</h3>
