@@ -1,30 +1,42 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;600&amp;family=Unbounded:wght@700&amp;display=swap" rel="stylesheet">
 <title>САЙТ - собери свой, а не очередного близнеца</title>
 <style>
   :root{
-    --paper:#F2E9D8; --ink:#2B2622; --accent:#D9711F; --accent-text:#9C4A0D;
-    --line:#C9B896;
-    --paper2:#E9DDC6; --muted:#6E6455; --code:#26221D; --codetext:#EFE4CC;
-    --ok:#3D7A45; --warn:#C8452C; --shadow:rgba(43,38,34,.10);
+    --emerald:#102F30; --emerald-mid:#1F4A43;
+    --paper:#F8F7F2; --paper2:#F0E8D8;
+    --info:#E2E8E9; --info-line:#BBC7CA;
+    --accent:#E86F4A; --accent-dark:#8F371F; --accent-text:#8F371F;
+    --ok:#5F7F68; --warn:#8F371F;
+    --ink:#1E2926; --muted:#62706A; --line:#D5C9B7;
+    --code:#102F30; --codetext:#F8F7F2;
+    --white:#FFFFFF; --shadow:rgba(16,47,48,.07);
   }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --paper:#191713; --ink:#F0E7D6; --paper2:#221F19; --line:#3A342A;
-      --accent-text:#E9873A;
-      --muted:#A2988A; --code:#100E0B; --ok:#7FC98A; --warn:#E0705A;
-      --shadow:rgba(0,0,0,.45); }
-  }
-  :root[data-theme="dark"]{
-    --paper:#191713; --ink:#F0E7D6; --paper2:#221F19; --line:#3A342A;
-    --accent-text:#E9873A;
-    --muted:#A2988A; --code:#100E0B; --ok:#7FC98A; --warn:#E0705A;
-    --shadow:rgba(0,0,0,.45);
-  }
+
+  /* --- закреплённая шапка серии --- */
+  .masthead{position:sticky;top:0;z-index:10;margin:-30px -18px 26px;border-bottom:1px solid var(--line);
+            background:rgba(248,247,242,.97);
+            font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+  .masthead-inner{max-width:1200px;min-height:65px;margin:0 auto;padding:0 20px;display:flex;
+                  align-items:center;justify-content:space-between;gap:24px}
+  .brand{color:var(--emerald);font-size:18px;font-weight:750;letter-spacing:-.015em}
+  .header-actions{display:flex;align-items:center;gap:14px}
+  .handout-title{color:var(--accent-dark);font-size:13px;font-weight:750;line-height:1.25}
+  .press-button{display:inline-flex;align-items:center;justify-content:center;min-height:42px;
+                padding:0 17px;border:0;border-radius:11px;background:var(--emerald-mid);color:var(--white);
+                font:750 14px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+                text-decoration:none;white-space:nowrap;box-shadow:0 3px 0 var(--emerald);cursor:pointer;
+                transition:transform .12s ease,box-shadow .12s ease}
+  .press-button:hover{color:var(--white);transform:translateY(1px);box-shadow:0 2px 0 var(--emerald)}
+  .press-button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--emerald)}
+  @media (max-width:760px){ .handout-title{display:none} }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{margin:0;padding:30px 18px 80px;background:var(--paper);color:var(--ink);
-       font:400 17px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+       font:400 18.4px/1.65 Spectral,Georgia,serif;
        -webkit-text-size-adjust:100%}
   .wrap{max-width:760px;margin:0 auto}
 
@@ -65,7 +77,8 @@
   h2[id],h3[id]{scroll-margin-top:16px}
   .kicker{color:var(--accent-text);font-weight:700;font-size:13px;letter-spacing:.1em;
           text-transform:uppercase;margin:0 0 10px}
-  h1{font-size:clamp(28px,6vw,44px);line-height:1.08;margin:0 0 14px;letter-spacing:-.02em}
+  h1,h2{font-family:Unbounded,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;font-weight:700;color:var(--emerald)}
+  h1{font-size:clamp(28px,6vw,37.6px);line-height:1.08;margin:0 0 14px;letter-spacing:-.02em}
   .lead{font-size:19px;color:var(--muted);margin:0 0 34px}
   h2{font-size:23px;margin:44px 0 16px;letter-spacing:-.01em}
   h3{font-size:18px;margin:26px 0 10px}
@@ -130,11 +143,7 @@
   .details-body{padding:0 20px 6px;border-top:1px solid var(--line)}
 
   /* --- раздел для новичка: мятная зона, сворачивается целиком --- */
-  :root{--mint:#E6E7D3; --mint-line:#B3B893; --mint-ink:#5C6634}
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){--mint:#20221A; --mint-line:#4A5138; --mint-ink:#B9C48A}
-  }
-  :root[data-theme="dark"]{--mint:#20221A; --mint-line:#4A5138; --mint-ink:#B9C48A}
+  :root{--mint:#E2E8E9; --mint-line:#BBC7CA; --mint-ink:#102F30}
   details.novice{background:var(--mint);border:1px solid var(--mint-line);
                  margin:34px 0 26px}
   details.novice > summary{font-size:20px;padding:18px 20px}
@@ -325,6 +334,16 @@
   .cta-button:active{transform:scale(.96);box-shadow:0 5px 14px rgba(217,113,31,.35)}
 </style>
 
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="brand">Гайды по нейросетям</div>
+    <div class="header-actions">
+      <div class="handout-title">Собери свой сайт</div>
+      <a class="press-button" data-partner href="https://theivansergeev.com/ailager/?gcpc=16fff">На ИИ-Лагерь</a>
+    </div>
+  </div>
+</header>
+
 <div class="layout">
   <aside class="toc" aria-label="Содержание">
     <p class="toc-title">Содержание</p>
@@ -389,7 +408,7 @@
     </ol>
   </div>
 
-  <p class="q">Уже пользуешься Claude Code? Тогда блок «для новичка» ниже можешь не открывать - он про установку, папки и лимиты. А вот три вещи после него нужны всем: <a class="jump inline" href="#navyk">навык</a>, <a class="jump inline" href="#obrazec">образец</a> и сама <a class="jump" href="#komanda">команда</a></p>
+  <p class="q">Уже пользуешься Claude Code? Тогда блок «для новичка» ниже можешь не открывать - он про установку, папки и лимиты. А вот три пункта после него нужны всем: <a class="jump inline" href="#navyk">навык</a>, <a class="jump inline" href="#obrazec">образец</a> и сама <a class="jump" href="#komanda">команда</a></p>
 
   <details class="novice" id="start">
     <summary><span class="badge">для новичка</span>Если ты совсем с нуля: что нужно до старта</summary>
@@ -453,7 +472,7 @@
       </div>
     </details>
 
-    <h3>Три вещи, без которых дальше не двинуться</h3>
+    <h3>Три условия, без которых дальше не двинуться</h3>
 
     <div class="card">
       <ul class="check" style="margin:0">
@@ -749,7 +768,7 @@
 
   <div class="card warn">
     <p><b>Пока это сайт только для тебя.</b> Он лежит файлами на твоём компьютере, и по интернету его никто не откроет. Скинуть подруге ссылку на этом этапе не получится - у неё не откроется</p>
-    <p style="margin:0">Это нормальный порядок вещей: сначала собираешь и правишь у себя, потом выкладываешь. Выкладывать имеет смысл, когда сайт уже нравится</p>
+    <p style="margin:0">Это нормальный порядок работы: сначала собираешь и правишь у себя, потом выкладываешь. Выкладывать имеет смысл, когда сайт уже нравится</p>
   </div>
 
   <h3>Когда захочешь выложить в интернет</h3>
@@ -782,7 +801,7 @@
     <p><b>Правит слишком много лишнего:</b></p>
     <div class="say"><span class="lbl">скажи Клоду в чат</span><button class="copy">копировать</button><span class="txt">Меняй ровно то, что я прошу, остальное не трогай</span></div>
     <p style="margin:0"><b>Сам не понимаешь, что не так:</b></p>
-    <div class="say"><span class="lbl">скажи Клоду в чат</span><button class="copy">копировать</button><span class="txt">Посмотри на первый экран глазами человека, который зашёл впервые. Назови три вещи, которые мешают понять, о чём этот сайт</span></div>
+    <div class="say"><span class="lbl">скажи Клоду в чат</span><button class="copy">копировать</button><span class="txt">Посмотри на первый экран глазами человека, который зашёл впервые. Назови три причины, которые мешают понять, о чём этот сайт</span></div>
   </div>
 
   <div class="card warn">
@@ -866,7 +885,7 @@
       <li><span class="check"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12 L10 18 L20 6" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Увидишь вживую, как ИИ собирает целый проект по одной команде словами</li>
     </ul>
 
-    <a href="https://theivansergeev.com/ailager/?gcpc=16fff" class="cta-button">Перейти на практикум →</a>
+    <a data-partner href="https://theivansergeev.com/ailager/?gcpc=16fff" class="cta-button">Перейти на практикум →</a>
   </div>
   </div>
 
@@ -1028,4 +1047,12 @@ document.querySelectorAll('.copy').forEach(function(b){
     }
   });
 });
+</script>
+
+<script>
+/* Партнёрская ссылка задаётся ЗДЕСЬ и только здесь.
+   Все кнопки с признаком data-partner получают её отсюда,
+   поэтому менять адрес нужно в одной строке, а не в разметке */
+var PARTNER_LINK = "https://theivansergeev.com/ailager/?gcpc=16fff";
+document.querySelectorAll("a[data-partner]").forEach(function (a) { a.href = PARTNER_LINK; });
 </script>
